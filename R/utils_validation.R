@@ -217,27 +217,58 @@ calculate_required_height <- function(n_boxes, categories_per_box, category_heig
 #' @return List with adjusted parameters
 #' @keywords internal
 auto_scale_to_fit <- function(height_info, current_category_height, current_spacing, n_boxes) {
-  if (height_info$fits) {
-    return(list(
-      needs_scaling = FALSE,
-      category_height = current_category_height,
-      box_spacing = current_spacing,
-      scale_factor = 1
-    ))
+  # Default return value if anything goes wrong
+  default_return <- list(
+    needs_scaling = FALSE,
+    category_height = current_category_height,
+    box_spacing = current_spacing,
+    scale_factor = 1
+  )
+  
+  # If it fits, return early
+  if (isTRUE(height_info$fits)) {
+    return(default_return)
   }
   
-  scale <- height_info$scale_factor * 0.95  # 95% to leave small margin
+  # Safely get scale factor
+  scale <- tryCatch({
+    sf <- height_info$scale_factor
+    if (is.null(sf) || !is.numeric(sf) || is.na(sf)) {
+      return(default_return)
+    }
+    sf * 0.95
+  }, error = function(e) {
+    return(NULL)
+  })
   
-  # Scale category height
-  if (inherits(current_category_height, "unit")) {
-    new_cat_height <- grid::unit(as.numeric(current_category_height) * scale, 
-                                  attr(current_category_height, "unit"))
-  } else {
-    new_cat_height <- current_category_height * scale
+  if (is.null(scale)) {
+    return(default_return)
   }
   
-  # Scale spacing
-  new_spacing <- current_spacing * scale
+  # Safely scale category height - just multiply the unit directly
+  new_cat_height <- tryCatch({
+    if (inherits(current_category_height, "unit")) {
+      # Simply multiply the unit by scale - grid handles this natively
+      current_category_height * scale
+    } else if (is.numeric(current_category_height)) {
+      current_category_height * scale
+    } else {
+      current_category_height
+    }
+  }, error = function(e) {
+    current_category_height
+  })
+  
+  # Safely scale spacing
+  new_spacing <- tryCatch({
+    if (is.numeric(current_spacing)) {
+      current_spacing * scale
+    } else {
+      current_spacing
+    }
+  }, error = function(e) {
+    current_spacing
+  })
   
   list(
     needs_scaling = TRUE,
