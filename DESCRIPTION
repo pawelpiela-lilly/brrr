@@ -1,0 +1,30 @@
+Package: brrr
+Title: Create Benefit-Risk Visualization Plots for Clinical Trials
+Version: 0.1.0
+Authors@R: 
+    person("Pawel", "Piela", , "pawel.piela@lilly.com", role = c("aut", "cre"),
+           comment = c(ORCID = "YOUR-ORCID-ID"))
+Description: Provides functions for creating benefit-risk visualization plots
+    commonly used in clinical trial analysis and regulatory submissions. The 
+    package supports forest plots with multiple axes, customizable headers,
+    legends, and various visual elements for presenting treatment comparisons.
+    Designed for pharmaceutical and biostatistics applications.
+Imports:
+    grid,
+    dplyr (>= 1.0.0),
+    R6,
+    rlang
+Suggests:
+    testthat (>= 3.0.0),
+    knitr,
+    rmarkdown
+License: MIT + file LICENSE
+URL: https://github.com/EliLillyCo/brrr
+BugReports: https://github.com/EliLillyCo/brrr/issues
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Depends: 
+    R (>= 3.5.0)
+LazyData: true
+Config/testthat/edition: 3
