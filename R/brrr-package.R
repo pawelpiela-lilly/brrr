@@ -25,7 +25,7 @@
 #'   \item{\code{\link{mock_data_risks}}}{Sample risk (safety) data}
 #' }
 #'
-#' @docType package
+#' @docType _PACKAGE
 #' @name brrr-package
 #' @aliases brrr
 #' 

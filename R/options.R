@@ -52,19 +52,12 @@
 page_options <- R6::R6Class(
   "page_options",
   public = list(
-    #' @field PAGE_TOP_MARGIN Top margin (0-1)
     PAGE_TOP_MARGIN = 0.05,
-    #' @field PAGE_BOTTOM_MARGIN Bottom margin (0-1)
     PAGE_BOTTOM_MARGIN = 0.05,
-    #' @field PAGE_LEFT_MARGIN Left margin (0-1)
     PAGE_LEFT_MARGIN = 0.05,
-    #' @field PAGE_RIGHT_MARGIN Right margin (0-1)
     PAGE_RIGHT_MARGIN = 0.05,
-    #' @field HEADER_HEIGHT Header height (0-1)
     HEADER_HEIGHT = 0.05,
-    #' @field HEADER_WIDTH Header width (0-1)
     HEADER_WIDTH = 0.9,
-    #' @field br_palette Color palette
     br_palette = c(
       "black", 
       "rebeccapurple" = "#663399", 
@@ -74,45 +67,25 @@ page_options <- R6::R6Class(
       "peachpuff" = "#FFDAB9", 
       "lightsalmon" = "#FFA07A"
     ),
-    #' @field row.label.font.size Row label font size (points)
     row.label.font.size = NULL,
-    #' @field label.use.separation.line Use separation lines
     label.use.separation.line = FALSE,
-    #' @field label.font.size Label font size (points)
     label.font.size = NULL,
-    #' @field label.font.usecolors Use colors for labels
     label.font.usecolors = TRUE,
-    #' @field header.label.font.size Header label font size (points)
     header.label.font.size = NULL,
-    #' @field header.label.color Header label color
     header.label.color = "#043099",
-    #' @field axis.label.font.size Axis label font size (points)
     axis.label.font.size = NULL,
-    #' @field axis.ticks.font.size Axis ticks font size (points)
     axis.ticks.font.size = NULL,
-    #' @field axis.ticks.font.rotation Axis ticks rotation (degrees)
     axis.ticks.font.rotation = 0,
-    #' @field axis.tick.len.ratio Tick length ratio
     axis.tick.len.ratio = 0.02,
-    #' @field axis.ticks.label.nice Use nice log scale labels
     axis.ticks.label.nice = TRUE,
-    #' @field box.spacing Box spacing
     box.spacing = NULL,
-    #' @field box.category.height Category height
     box.category.height = NULL,
-    #' @field box.fill.color Box fill color
     box.fill.color = "#ded8db43",
-    #' @field legend.label.font.size Legend label font size (points)
     legend.label.font.size = NULL,
-    #' @field legend.header.font.size Legend header font size (points)
     legend.header.font.size = NULL,
-    #' @field legend.fill.color Legend fill color
     legend.fill.color = "#fffdd0",
-    #' @field forest.line.type Forest plot line type
     forest.line.type = 1,
-    #' @field forest.line.width Forest plot line width
     forest.line.width = 3,
-    #' @field forest.pch.shift Point character shift
     forest.pch.shift = 0,
     
     #' @description Initialize the page options.
@@ -370,11 +343,11 @@ page_options <- R6::R6Class(
   ),
   
   private = list(
-    #' Safely convert units with fallback
-    #' @param x Unit object to convert
-
-    #' @param unit_to Target unit
-    #' @param default Default value if conversion fails
+    
+    # Safely convert units with fallback
+    # @param x Unit object to convert
+    # @param unit_to Target unit
+    # @param default Default value if conversion fails
     safe_convert_unit = function(x, unit_to, default) {
       tryCatch({
         grid::convertUnit(x, unit_to, valueOnly = TRUE)
@@ -383,10 +356,10 @@ page_options <- R6::R6Class(
       })
     },
     
-    #' Safely convert Y units with fallback
-    #' @param x Unit object to convert
-    #' @param unit_to Target unit
-    #' @param default Default value if conversion fails
+    # Safely convert Y units with fallback
+    # @param x Unit object to convert
+    # @param unit_to Target unit
+    # @param default Default value if conversion fails
     safe_convert_y = function(x, unit_to, default) {
       tryCatch({
         grid::convertY(x, unitTo = unit_to, valueOnly = TRUE)
